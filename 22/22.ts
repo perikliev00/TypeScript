@@ -106,3 +106,76 @@ const temp=new Temperature(25);
 console.log(temp.celsius);
 temp.celsius=30;
 console.log(temp.celsius);
+function identity<T>(arg: T) {
+    return arg;
+}
+let output1=identity<string>("hello");
+let output2=identity<number>(123);
+const reverseArray = <T>(array:T[]): T[] => {
+    return array.reverse();
+}
+let numbers=[1,2,3,4,5];
+let reversedNumbers=reverseArray<number>(numbers);
+class GenericBox<T> {
+    private item: T;
+    constructor(item: T) {
+        this.item=item;
+    }
+    getItem(): T {
+        return this.item;
+    }
+}
+let box1= new GenericBox<string>("apple");
+console.log(box1.getItem());
+let box2= new GenericBox<number>(123);
+console.log(box2.getItem());
+interface Lengthwise {
+    length: number;
+}
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length);
+    return arg;
+}
+loggingIdentity({ length:5,value: "hello"});
+interface GenericIdentityFn<T> {
+    (arg: T): T;
+}
+function indentity<T>(arg: T):T {
+    return arg;
+}
+let myIdentity: GenericIdentityFn<number>=identity;
+class Pair<T, U> {
+    constructor(public first: T,public second: U) {}
+}
+let pair1=new Pair<number,string>(1,"one");
+let pair2= new Pair<string, boolean>("true",true);
+function displayValue(value: string | number) {
+    console.log(value);
+}
+displayValue("hello");
+displayValue(123);
+interface Car {
+    make: string;
+    model: string;
+}
+interface Electric {
+    range:number
+}
+type ElectricCar=Car & Electric;
+let tesla : ElectricCar = {
+     make: "Tesla",
+     model: "Model S",
+     range: 500
+};
+class Circle {
+    radius:number;
+    constructor(radius: number) {
+        this.radius=radius
+    }
+    area(): number {
+        return Math.PI **2
+    }
+}
+class Rectangle {
+    width:number;
+}
